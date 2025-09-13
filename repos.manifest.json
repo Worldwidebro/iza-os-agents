@@ -1,0 +1,51 @@
+{
+  "version": "1.0",
+  "policies": {
+    "allowedProtocols": ["https"],
+    "allowUnpinned": false,
+    "allowedOwners": ["your-org", "trusted-user"],
+    "allowedRepos": ["your-org/*", "trusted-user/*"],
+    "defaultDepth": 1,
+    "maxDepth": 50,
+    "concurrency": 3,
+    "requireSparseForMonorepo": true
+  },
+  "auth": {
+    "method": "env_token",
+    "tokenEnv": "GITHUB_TOKEN"
+  },
+  "repositories": [
+    {
+      "name": "core-library",
+      "url": "https://github.com/your-org/core-library.git",
+      "owner": "your-org",
+      "repo": "core-library",
+      "protocol": "https",
+      "ref": {"tag": "v1.2.3"},
+      "pinCommit": "0123456789abcdef0123456789abcdef01234567",
+      "verifyCommit": true,
+      "depth": 1,
+      "filter": "blob:none",
+      "sparsePaths": ["src/", "LICENSE"],
+      "submodules": {"enabled": false, "recursive": false, "depth": 1},
+      "lfs": false,
+      "destination": "/workspace/vendor/core-library"
+    },
+    {
+      "name": "tools-scripts",
+      "url": "https://github.com/trusted-user/tools-scripts.git",
+      "owner": "trusted-user",
+      "repo": "tools-scripts",
+      "protocol": "https",
+      "ref": {"branch": "main"},
+      "verifyCommit": false,
+      "depth": 1,
+      "filter": "blob:none",
+      "sparsePaths": [],
+      "submodules": {"enabled": true, "recursive": true, "depth": 1},
+      "lfs": false,
+      "destination": "/workspace/vendor/tools-scripts"
+    }
+  ]
+}
+

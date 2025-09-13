@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RepositoryPullManifest",
+  "type": "object",
+  "required": [
+    "version",
+    "policies",
+    "repositories"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Manifest version string"
+    },
+    "policies": {
+      "type": "object",
+      "required": [
+        "allowedProtocols",
+        "allowUnpinned",
+        "allowedOwners"
+      ],
+      "properties": {
+        "allowedProtocols": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "https",
+              "ssh"
+            ]
+          },
+          "description": "Protocols permitted for cloning"
+        },
+        "allowUnpinned": {
+          "type": "boolean",
+          "description": "If false, each repository must be pinned by tag or commit"
+        },
+        "allowedOwners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of allowed GitHub owners (orgs or users)"
+        },
+        "allowedRepos": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Optional allowlist of owner/repo patterns (supports '*' wildcard)"
+        },
+        "defaultDepth": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Default clone depth when not specified per repo"
+        },
+        "maxDepth": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Upper bound for any requested clone depth"
+        },
+        "concurrency": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16,
+          "description": "Maximum simultaneous clones"
+        },
+        "requireSparseForMonorepo": {
+          "type": "boolean",
+          "description": "If true, enforce sparse checkout for repositories detected as monorepos"
+        }
+      },
+      "additionalProperties": false
+    },
+    "auth": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "enum": [
+            "env_token",
+            "ssh_key",
+            "none"
+          ]
+        },
+        "tokenEnv": {
+          "type": "string",
+          "description": "Environment variable containing a GitHub token"
+        },
+        "sshKeyPath": {
+          "type": "string",
+          "description": "Path to a read-only SSH key to use for cloning"
+        }
+      },
+      "additionalProperties": false
+    },
+    "repositories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "url",
+          "owner",
+          "repo",
+          "destination"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Human-friendly identifier for the repository"
+          },
+          "url": {
+            "type": "string",
+            "description": "Clone URL (https or ssh)"
+          },
+          "owner": {
+            "type": "string",
+            "description": "GitHub organization or user"
+          },
+          "repo": {
+            "type": "string",
+            "description": "Repository name"
+          },
+          "protocol": {
+            "enum": [
+              "https",
+              "ssh"
+            ],
+            "description": "Protocol to use for cloning"
+          },
+          "ref": {
+            "type": "object",
+            "properties": {
+              "branch": {
+                "type": "string"
+              },
+              "tag": {
+                "type": "string"
+              },
+              "commit": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{7,40}$"
+              }
+            },
+            "minProperties": 1,
+            "maxProperties": 1,
+            "description": "Reference to checkout"
+          },
+          "pinCommit": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{7,40}$",
+            "description": "Expected commit SHA for verification"
+          },
+          "verifyCommit": {
+            "type": "boolean",
+            "description": "Verify that HEAD matches pinCommit after checkout"
+          },
+          "depth": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Clone depth override for this repository"
+          },
+          "filter": {
+            "enum": [
+              "blob:none",
+              "tree:0",
+              "none"
+            ],
+            "description": "Partial clone filter"
+          },
+          "sparsePaths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Paths to include in sparse checkout"
+          },
+          "submodules": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "recursive": {
+                "type": "boolean"
+              },
+              "depth": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "additionalProperties": false,
+            "description": "Submodule update options"
+          },
+          "lfs": {
+            "type": "boolean",
+            "description": "If true, fetch Git LFS objects and checkout"
+          },
+          "destination": {
+            "type": "string",
+            "description": "Absolute path to clone into"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
+
