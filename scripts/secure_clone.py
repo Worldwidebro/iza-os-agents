@@ -120,17 +120,17 @@ def build_env_for_auth(auth: dict, allow_missing: bool = False) -> dict:
     return env
 
 
-def compute_ref_args(repo: dict) -> tuple[list[str], str | None]:
+def compute_ref_args(repo: dict) -> tuple[list[str], str | None, str | None]:
     ref = repo.get("ref")
     if not ref:
-        return [], None
+        return [], None, None
     if "commit" in ref:
-        return [], ref["commit"]
+        return [], ref["commit"], "commit"
     if "tag" in ref:
-        return ["--branch", ref["tag"]], None
+        return ["--branch", ref["tag"]], None, "tag"
     if "branch" in ref:
-        return ["--branch", ref["branch"]], None
-    return [], None
+        return ["--branch", ref["branch"]], None, "branch"
+    return [], None, None
 
 
 def safe_mkdir(path: Path) -> None:
@@ -148,19 +148,20 @@ def git_clone(repo: dict, policies: dict, env: dict, dry_run: bool) -> None:
     submodules = repo.get("submodules") or {"enabled": False}
     sparse_paths = repo.get("sparsePaths") or []
 
-    ref_args, commit_to_checkout = compute_ref_args(repo)
+    ref_args, commit_to_checkout, ref_type = compute_ref_args(repo)
 
-    clone_cmd_parts = [
-        "git", "clone",
-        "--no-tags",
-        "--depth", str(depth)
-    ]
+    clone_cmd_parts = ["git", "clone"]
+    # Avoid --no-tags when cloning by tag so that the tag name resolves cleanly
+    if ref_type != "tag":
+        clone_cmd_parts.append("--no-tags")
+    clone_cmd_parts += ["--depth", str(depth)]
     if filter_arg and filter_arg != "none":
         clone_cmd_parts += ["--filter", filter_arg]
     if submodules.get("enabled"):
         clone_cmd_parts += ["--recurse-submodules"]
+        # Use shallow submodules, but avoid duplicating --depth on the clone command
         if submodules.get("depth"):
-            clone_cmd_parts += ["--shallow-submodules", "--depth", str(submodules["depth"]) ]
+            clone_cmd_parts += ["--shallow-submodules"]
     clone_cmd_parts += ref_args
     clone_cmd_parts += [url, str(destination)]
 
@@ -191,6 +192,11 @@ def git_clone(repo: dict, policies: dict, env: dict, dry_run: bool) -> None:
     if commit_to_checkout:
         run(f"git fetch --depth {depth} origin {commit_to_checkout}", cwd=str(destination), env=env)
         run(f"git checkout --detach {commit_to_checkout}", cwd=str(destination), env=env)
+
+    # If submodules configured with a specific depth, apply via post-clone update
+    if submodules.get("enabled") and submodules.get("depth"):
+        sub_depth = int(submodules.get("depth"))
+        run(f"git submodule update --init --recursive --depth {sub_depth}", cwd=str(destination), env=env)
 
     # Verify pinCommit if required
     if repo.get("verifyCommit") and repo.get("pinCommit"):
