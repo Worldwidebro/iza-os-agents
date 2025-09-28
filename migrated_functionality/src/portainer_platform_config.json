@@ -1,0 +1,21 @@
+{
+  "platform": "Portainer",
+  "status": "configured",
+  "iza_os_integration_version": "1.0",
+  "docker_config": {
+    "image": "portainer/portainer-ce",
+    "ports": [
+      "9000:9000",
+      "9443:9443"
+    ],
+    "volumes": [
+      "/var/run/docker.sock:/var/run/docker.sock",
+      "portainer_data:/data"
+    ],
+    "restart": "unless-stopped"
+  },
+  "access_url": "http://localhost:9000",
+  "ssl_url": "https://localhost:9443",
+  "description": "Docker container management UI",
+  "use_case": "Container orchestration, Docker management"
+}

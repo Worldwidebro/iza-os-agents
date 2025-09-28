@@ -1,0 +1,44 @@
+{
+  "nodes": {
+    "avs-omni": {
+      "type": "master-orchestrator",
+      "value": "$1.4B+",
+      "connections": ["core", "agents", "enterprise", "platform", "infrastructure"]
+    },
+    "core": {
+      "type": "api-gateway",
+      "value": "$500M+",
+      "connections": ["agents", "enterprise", "platform", "infrastructure"]
+    },
+    "agents": {
+      "type": "workforce",
+      "value": "$300M+",
+      "connections": ["core", "enterprise", "platform"]
+    },
+    "enterprise": {
+      "type": "business-engine",
+      "value": "$400M+",
+      "connections": ["core", "agents", "platform", "infrastructure"]
+    },
+    "platform": {
+      "type": "interface",
+      "value": "$200M+",
+      "connections": ["core", "agents", "enterprise"]
+    },
+    "infrastructure": {
+      "type": "foundation",
+      "value": "$150M+",
+      "connections": ["core", "enterprise", "avs-omni"]
+    }
+  },
+  "edges": {
+    "data-flow": ["core", "agents", "enterprise", "platform"],
+    "control-flow": ["avs-omni", "all-repositories"],
+    "monitoring": ["infrastructure", "all-repositories"],
+    "revenue": ["enterprise", "all-repositories"],
+    "knowledge": ["all-repositories", "avs-omni"]
+  },
+  "total-value": "$2.85B+",
+  "consolidation-ratio": "25:6",
+  "efficiency-gain": "75%"
+}
