@@ -1,0 +1,73 @@
+{
+  "version": "2.0.0",
+  "rules": {
+    "worldwidebro_context": {
+      "name": "Worldwidebro Repository Context",
+      "description": "Ensure all actions align with the 200 worldwidebro repositories target",
+      "priority": 10,
+      "enabled": true,
+      "target_repositories": 200,
+      "context_preservation": true
+    },
+    "revenue_optimization": {
+      "name": "Revenue Optimization",
+      "description": "Continuously optimize for maximum revenue generation",
+      "priority": 10,
+      "enabled": true,
+      "target_monthly": 100000,
+      "growth_rate": 0.2,
+      "profit_margin": 0.8
+    },
+    "billionaire_consciousness": {
+      "name": "Billionaire Consciousness",
+      "description": "Apply exponential growth and strategic principles",
+      "priority": 9,
+      "enabled": true,
+      "energy_flow_optimization": true,
+      "strategic_decision_making": true,
+      "exponential_growth": true
+    },
+    "quality_standards": {
+      "name": "Quality Standards",
+      "description": "Enforce enterprise-grade quality and reliability",
+      "priority": 9,
+      "enabled": true,
+      "test_coverage": 0.9,
+      "uptime_target": 0.9999,
+      "response_time": 200
+    },
+    "session_awareness": {
+      "name": "Session Awareness",
+      "description": "Maintain complete session continuity and context preservation",
+      "priority": 8,
+      "enabled": true,
+      "context_preservation": true,
+      "continuity_rate": 0.95
+    },
+    "system_integration": {
+      "name": "System Integration",
+      "description": "Ensure seamless integration between all MEMU ecosystem components",
+      "priority": 8,
+      "enabled": true,
+      "mcp_tools": true,
+      "klavis_ai": true,
+      "iza_os": true,
+      "genix_bank": true
+    }
+  },
+  "settings": {
+    "auto_apply": true,
+    "strict_mode": true,
+    "monitoring_enabled": true,
+    "revenue_tracking": true,
+    "quality_enforcement": true,
+    "session_continuity": true
+  },
+  "metrics": {
+    "success_rate_target": 0.8,
+    "revenue_impact_target": 100000,
+    "quality_standards_target": 0.9,
+    "uptime_target": 0.9999,
+    "performance_target": 200
+  }
+}

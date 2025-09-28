@@ -1,0 +1,82 @@
+{
+  "timestamp": "2025-09-28T11:23:31.262040",
+  "total_rules": 8,
+  "total_components": 5,
+  "rules_by_type": {
+    "cursor": 2,
+    "revenue": 1,
+    "quality": 2,
+    "system": 3
+  },
+  "components_by_type": {
+    "cursor": 1,
+    "mcp": 1,
+    "klavis": 1,
+    "iza_os": 1,
+    "genix_bank": 1
+  },
+  "performance_summary": {
+    "Cursor AI Agent": {
+      "status": "active",
+      "rules_applied": 7,
+      "performance_metrics": {
+        "response_time": 0.0,
+        "accuracy": 0.0,
+        "revenue_impact": 100000.0,
+        "quality_score": 20.0,
+        "uptime": 0.2
+      }
+    },
+    "MCP Tools Integration": {
+      "status": "active",
+      "rules_applied": 8,
+      "performance_metrics": {
+        "server_count": 50.0,
+        "uptime": 100.0,
+        "response_time": 150.0,
+        "error_rate": 0.05,
+        "quality_score": 20
+      }
+    },
+    "Klavis AI Platform": {
+      "status": "active",
+      "rules_applied": 8,
+      "performance_metrics": {
+        "mas_agents": 6.0,
+        "task_completion": 95.0,
+        "quality_score": 100.0,
+        "revenue_impact": 110000.0,
+        "uptime": 0.30000000000000004
+      }
+    },
+    "IZA OS Ecosystem": {
+      "status": "active",
+      "rules_applied": 7,
+      "performance_metrics": {
+        "dashboard_load": 2.0,
+        "api_response": 200.0,
+        "uptime": 100.0,
+        "user_satisfaction": 98.0,
+        "quality_score": 20
+      }
+    },
+    "Genix Bank Financial": {
+      "status": "active",
+      "rules_applied": 7,
+      "performance_metrics": {
+        "transaction_volume": 1000000.0,
+        "transaction_speed": 100.0,
+        "accuracy": 99.99,
+        "revenue_tracking": 100.0,
+        "quality_score": 20,
+        "uptime": 0.30000000000000004
+      }
+    }
+  },
+  "revenue_impact": 550000.0,
+  "final_application_result": {
+    "total_applications": 37,
+    "successful_applications": 34,
+    "success_rate": 91.8918918918919
+  }
+}

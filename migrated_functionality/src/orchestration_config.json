@@ -1,0 +1,23 @@
+{
+  "github_org": "Worldwidebro",
+  "total_repositories": 200,
+  "session_timeout": 3600,
+  "update_interval": 30,
+  "max_concurrent_sessions": 10,
+  "revenue_targets": {
+    "daily": 1000000,
+    "monthly": 30000000,
+    "annual": 1400000000
+  },
+  "repository_categories": {
+    "core_systems": 25,
+    "business_systems": 17,
+    "bot_ecosystem": 150,
+    "ai_ml_systems": 8
+  },
+  "integration_endpoints": {
+    "github_api": "https://api.github.com",
+    "deployment_dashboard": "http://localhost:3000",
+    "session_monitor": "ws://localhost:8765"
+  }
+}
